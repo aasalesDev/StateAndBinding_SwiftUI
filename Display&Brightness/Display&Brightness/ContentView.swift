@@ -14,6 +14,8 @@ struct ContentView: View {
     @State var brightnessLevel = 50.0
     @State var boldTextEnabled = false
     @State var raiseToWakeEnabled = true
+    @State var isDarkChecked: Bool = true
+    @State var isLightChecked: Bool = false
     
     let appearance = "APPEARANCE"
     let brightness = "BRIGHTNESS"
@@ -23,10 +25,48 @@ struct ContentView: View {
         
         Form {
             Section(header: Text(appearance)){
-                Image("theme")
-                    .resizable()
-                    .scaledToFit()
-                    .padding(EdgeInsets(top: 10, leading: 40, bottom: 10, trailing: 40))
+                VStack {
+                    HStack {
+                        VStack {
+                            Image("Light")
+                                .resizable()
+                                .scaledToFit()
+                                .cornerRadius(10)
+                                .padding(EdgeInsets(top: 10, leading: 40, bottom: 10, trailing: 40))
+                                
+                            Text("Light")
+                            Button(action: {
+                                self.isLightChecked.toggle()
+                            }) {
+                                HStack {
+                                    Image(systemName: isLightChecked ? "checkmark.circle.fill" : "circle")
+                                        .foregroundColor(isLightChecked ? .green : .primary)
+                                        .padding(.top)
+                                }
+                            }
+                        }
+                        
+                        VStack {
+                            Image("Dark")
+                                .resizable()
+                                .scaledToFit()
+                                .cornerRadius(10)
+                                .padding(EdgeInsets(top: 10, leading: 40, bottom: 10, trailing: 40))
+                            Text("Dark")
+                            Button(action: {
+                                self.isDarkChecked.toggle()
+                            }) {
+                                HStack {
+                                    Image(systemName: isDarkChecked ? "checkmark.circle.fill" : "circle")
+                                        .foregroundColor(isDarkChecked ? .green : .primary)
+                                        .padding(.top)
+                                }
+                            }
+                        }
+                    }
+                    
+                }
+                
                 HStack {
                     Text("Automatic")
                     Spacer()
